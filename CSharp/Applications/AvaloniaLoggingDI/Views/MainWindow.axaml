@@ -1,0 +1,19 @@
+<Window x:Class="AvaloniaLoggingDI.Views.MainWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        x:Name="Window"
+
+        xmlns:control="clr-namespace:LogViewer.Avalonia;assembly=LogViewer.Avalonia"
+
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        
+        Title="C# AVALONIA | LogViewer Control Example - Dot Net 7.0"
+        Icon="avares://Avalonia.Resources/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen" Height="634" Width="600">
+
+    <control:LogViewerControl DataContext="{Binding LogViewer}" />
+
+</Window>

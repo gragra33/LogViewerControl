@@ -1,0 +1,23 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+        xmlns:control="clr-namespace:LogViewerVB.Wpf;assembly=LogViewerVB.Wpf"
+        xmlns:viewModels="clr-namespace:LogViewerVB.Core.ViewModels;assembly=LogViewerVB.Core"
+
+        Title="VB WPF MVVM | LOG4NET LogViewer Control Example - Dot Net 7.0"
+        WindowStartupLocation="CenterScreen" Height="634" Width="600">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:LogViewerControlViewModel}">
+            <control:LogViewerControl />
+        </DataTemplate>
+    </Window.Resources>
+
+    <ContentPresenter Content="{Binding LogViewer}" />
+
+</Window>

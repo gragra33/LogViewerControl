@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>AvaloniaNlogVBNoDI</RootNamespace>
+  </PropertyGroup>
+ 
+	<ItemGroup>
+		<Content Include="appsettings.Development.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="appsettings.Production.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+  <ItemGroup>
+	<TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\..\..\Resources\Avalonia.Resources\Avalonia.Resources.vbproj" />
+	<ProjectReference Include="..\..\Background Services\RandomLoggingVB.Service\RandomLoggingVB.Service.vbproj" />
+	<ProjectReference Include="..\..\Controls\LogViewerVB.Avalonia\LogViewerVB.Avalonia.vbproj" />
+	<ProjectReference Include="..\..\Core\CommonVB.Core\CommonVB.Core.vbproj" />
+	<ProjectReference Include="..\..\Core\NLog.Target.LogViewVB.Core\NLog.Target.LogViewVB.Core.vbproj" />
+  </ItemGroup>
+
+</Project>

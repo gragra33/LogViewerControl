@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace>AvaloniaLog4NetVBDI</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+	<ItemGroup>
+		<TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MessageBox.Avalonia" Version="2.1.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Resources\Avalonia.Resources\Avalonia.Resources.vbproj" />
+    <ProjectReference Include="..\..\Background Services\RandomLoggingVB.Service\RandomLoggingVB.Service.vbproj" />
+    <ProjectReference Include="..\..\Controls\LogViewerVB.Avalonia\LogViewerVB.Avalonia.vbproj" />
+    <ProjectReference Include="..\..\Core\Log4Net.Appender.LogViewVB.Core\Log4Net.Appender.LogViewVB.Core.vbproj" />
+  </ItemGroup>
+
+</Project>
