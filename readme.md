@@ -2,18 +2,7 @@ Dot Net Core LogViewer Control for WinForms, Wpf, and Avalonia using the ILogger
   
 **WinForms**, **WPF**, and **Avalonia** LogViewer controls for live viewing of ILogger entries with full colorization support, and more for **C#** and **VB** on **Windows**, **MacOS** and **Linux** using **Microsoft Logger**, **Serilog**, **NLog**, and **Log4Net** + Logging Demystified
 
-## UPDATED March 29th, 2023
-
-* Added support for [Apache Log4Net logging](https://logging.apache.org/log4net/) Services + **WinForms**, **WPF**, and **Avalonia** sample DI & no-DI applications (x6)
-* Various code cleanup and optimizations
-* Documentation updated with new Log4Net section and improved Solution Setup section
-
-## UPDATED March 28th, 2023
-
-* Added support for [NLog logging](https://nlog-project.org/) platform + **WinForms**, **WPF**, and **Avalonia** sample DI & no-DI applications (x6)
-* While implementing NLOG support, found and fixed an issue in `LogViewer.Winforms` project where possible "index out of range" exception occasionally occurs 
- 
-## Introduction
+# Introduction
   
 I was working on a solution that required a Viewer for **Logger** entries in the app itself for live viewing of what was happening behind the scene.
   
@@ -63,7 +52,7 @@ Lastly, here is proof that you can develop an application for **Mac OS** using *
 ## Contents
 
 <!-- TOC -->
-  * [Introduction](#introduction)
+* [Introduction](#introduction)
   * [Preview](#preview)
   * [Contents](#contents)
   * [Prerequisites](#prerequisites)
@@ -83,31 +72,31 @@ Lastly, here is proof that you can develop an application for **Mac OS** using *
       * [Registering Microsoft Loggers](#registering-microsoft-loggers)
       * [Registration - `ServicesExtension` class](#registration---servicesextension-class)
       * [Dependency Injection](#dependency-injection)
-      * [Manually (without Dependency Injection)](#manually--without-dependency-injection-)
+      * [Manually (without Dependency Injection)](#manually-without-dependency-injection)
     * [Custom Serilog Logger Implementation](#custom-serilog-logger-implementation)
       * [Logger - `DataStoreLoggerSink` class](#logger---datastoreloggersink-class)
       * [Configuring the Custom Sink - `DataStoreLoggerSinkExtensions` class](#configuring-the-custom-sink---datastoreloggersinkextensions-class)
-      * [Registering Sinks (Loggers)](#registering-sinks--loggers-)
+      * [Registering Sinks (Loggers)](#registering-sinks-loggers)
       * [Dependency Injection](#dependency-injection-1)
-      * [Manually (without Dependency Injection)](#manually--without-dependency-injection--1)
+      * [Manually (without Dependency Injection)](#manually-without-dependency-injection-1)
     * [Custom NLog Target Logger Implementation](#custom-nlog-target-logger-implementation)
       * [Logger - `DataStoreLoggerTarget` class](#logger---datastoreloggertarget-class)
       * [Configuring the Custom Target - `ServicesExtension` class](#configuring-the-custom-target---servicesextension-class)
-      * [Registering Targets (Loggers)](#registering-targets--loggers-)
+      * [Registering Targets (Loggers)](#registering-targets-loggers)
       * [Dependency Injection](#dependency-injection-2)
-      * [Manually (without Dependency Injection)](#manually--without-dependency-injection--2)
+      * [Manually (without Dependency Injection)](#manually-without-dependency-injection-2)
     * [Custom Apache Log4Net Appender Logger Implementation](#custom-apache-log4net-appender-logger-implementation)
       * [Adding missing parts to Microsoft.Extensions.Logging.Log4Net.AspNetCore](#adding-missing-parts-to-microsoftextensionslogginglog4netaspnetcore)
         * [Adding EventID support](#adding-eventid-support)
         * [Adding Dependency Injection support for the Appender support](#adding-dependency-injection-support-for-the-appender-support)
       * [Logger - `DataStoreLoggerAppender` class](#logger---datastoreloggerappender-class)
       * [Configuring the Custom Appender - `ServicesExtension` class](#configuring-the-custom-appender---servicesextension-class)
-      * [Registering Appenders (Loggers)](#registering-appenders--loggers-)
+      * [Registering Appenders (Loggers)](#registering-appenders-loggers)
       * [Dependency Injection](#dependency-injection-3)
-      * [Manually (without Dependency Injection)](#manually--without-dependency-injection--3)
+      * [Manually (without Dependency Injection)](#manually-without-dependency-injection-3)
     * [Processing Log Entries](#processing-log-entries)
       * [Dependency Injection](#dependency-injection-4)
-      * [Manually (without Dependency Injection)](#manually--without-dependency-injection--4)
+      * [Manually (without Dependency Injection)](#manually-without-dependency-injection-4)
       * [Listening for new Entries](#listening-for-new-entries)
       * [Manual Handling of the CollectionChanged events](#manual-handling-of-the-collectionchanged-events)
   * [LogViewerControl Implementation](#logviewercontrol-implementation)
@@ -116,7 +105,7 @@ Lastly, here is proof that you can develop an application for **Mac OS** using *
       * [WPF Implementation](#wpf-implementation)
     * [Common code - `LogViewer.Core` project](#common-code---logviewercore-project)
       * [`LoggerExtensions` class](#loggerextensions-class)
-    * [ViewModel: `LogViewerControlViewModel` Class](#viewmodel--logviewercontrolviewmodel-class)
+    * [ViewModel: `LogViewerControlViewModel` Class](#viewmodel-logviewercontrolviewmodel-class)
     * [WinForms - LogViewerControl](#winforms---logviewercontrol)
       * [Code Behind](#code-behind)
     * [WPF - LogViewerControl](#wpf---logviewercontrol)
@@ -131,24 +120,24 @@ Lastly, here is proof that you can develop an application for **Mac OS** using *
       * [`MainForm` Code-Behind](#mainform-code-behind)
       * [Registration - `Bootstrapper` class](#registration---bootstrapper-class)
       * [Usage](#usage)
-    * [WinForms - Manually (without Dependency Injection)](#winforms---manually--without-dependency-injection-)
+    * [WinForms - Manually (without Dependency Injection)](#winforms---manually-without-dependency-injection)
       * [`MainForm` Code-Behind](#mainform-code-behind-1)
     * [WPF - Dependency Injection](#wpf---dependency-injection)
       * [Registration - `ServicesExtension` class](#registration---servicesextension-class-2)
       * [`MainWindow` - `LogViewerControl` Host](#mainwindow---logviewercontrol-host)
       * [`MainViewModel` class](#mainviewmodel-class)
-      * [Registration - App (C#) / Application (VB) class](#registration---app--c---application--vb--class)
+      * [Registration - App (C#) / Application (VB) class](#registration---app-c--application-vb-class)
       * [Usage](#usage-1)
-    * [WPF - Manually (without Dependency Injection)](#wpf---manually--without-dependency-injection-)
+    * [WPF - Manually (without Dependency Injection)](#wpf---manually-without-dependency-injection)
       * [`MainWindow` XAML - `LogViewerControl` Host](#mainwindow-xaml---logviewercontrol-host)
       * [`MainWindow` Code-behind](#mainwindow-code-behind)
     * [Avalonia - Dependency Injection](#avalonia---dependency-injection)
       * [Registration - `ServicesExtension` class](#registration---servicesextension-class-3)
       * [`MainWindow` - `LogViewerControl` Host](#mainwindow---logviewercontrol-host-1)
       * [`MainViewModel` class](#mainviewmodel-class-1)
-      * [Registration - App (C#) / Application (VB) class](#registration---app--c---application--vb--class-1)
+      * [Registration - App (C#) / Application (VB) class](#registration---app-c--application-vb-class-1)
       * [Usage](#usage-2)
-    * [Avalonia - Manually (without Dependency Injection)](#avalonia---manually--without-dependency-injection-)
+    * [Avalonia - Manually (without Dependency Injection)](#avalonia---manually-without-dependency-injection)
       * [`MainWindow` XAML - `LogViewerControl` Host](#mainwindow-xaml---logviewercontrol-host-1)
       * [`MainWindow` Code-behind](#mainwindow-code-behind-1)
   * [Generating Sample Log Messages](#generating-sample-log-messages)
@@ -156,14 +145,17 @@ Lastly, here is proof that you can develop an application for **Mac OS** using *
     * [Dependency Injection](#dependency-injection-5)
       * [Registration](#registration)
       * [Usage](#usage-3)
-    * [Manually (without Dependency Injection)](#manually--without-dependency-injection--5)
+    * [Manually (without Dependency Injection)](#manually-without-dependency-injection-5)
+  * [LoggerMessageAttribute (C# only)](#loggermessageattribute)
+    * [Dedicated Application Logging method](#dedicated-application-logging-method)
+    * [Dedicated RandomLoggingService Logging method](#dedicated-randomloggingservice-logging-method)
+    * [RandomLoggingService](#randomloggingservice)
   * [Summary](#summary)
   * [References](#references)
     * [Documentation, Articles, etc](#documentation-articles-etc)
     * [Nuget Packages](#nuget-packages)
   * [History](#history)
 <!-- TOC -->
-  
 ## Prerequisites
   
 The code that accompanies this article is for Dot Net Core only. Version 7.03 was used and Nullable is enabled. However, if required, it can be modified to support Dot Net 3.1 or later.
@@ -3724,7 +3716,325 @@ RandomLoggingService service = new(new Logger<RandomLoggingService>(LoggingHelpe
 // Start generating log entries
 _ = service.StartAsync(_cancellationTokenSource.Token);
 ```
+
+## LoggerMessageAttribute (C# only)
+
+In .Net 6.0, support for compile-time source generated performant logging APIs via the [LoggerMessageAttribute](https://devblogs.microsoft.com/dotnet/announcing-net-6/#microsoft-extensions-logging-compile-time-source-generator).
+
+Microsoft has documentation that covers usage called [Compile-time logging source generation](learn.microsoft.com/en-us/dotnet/core/extensions/logger-message-generator). The logging constraints listed that must be followed are:
+- Logging methods must be partial and return void.
+- Logging method names must not start with an underscore.
+- Parameter names of logging methods must not start with an underscore.
+- Logging methods may not be defined in a nested type.
+- Logging methods cannot be generic.
+- If a logging method is static, the ILogger instance is required as a parameter.
+Other constraints not listed are:
+- An Event Id is required and is a static parameter
+- The optional Event Name is a static parameter
+- Exceptions must be included in the message and is not a separate field 
+
+The coming .Net 8.0 (as of the time of writing this article) has added more flexibility with the constructor parameters that can be passed however the static fields remain. You can read more here: [Expanding LoggerMessageAttribute Constructor Overloads for Enhanced Functionality](https://github.com/dotnet/core/issues/8437#issuecomment-1605698272).
+
+With the above constrains in mind, we can now update the code:
+1. Each application project required a dedicated Logging method with a `LoggerMessageAttribute` decorator
+2. Every Event Name requires its own dedicated Logging method
+
+### Dedicated Application Logging method
+
+```csharp
+public static partial class ApplicationLog
+{
+    private const string AppName = "WpfLoggingAttrDI";
+
+    [LoggerMessage (EventId = 0, EventName = AppName, Message = "{msg}")]
+    public static partial void Emit(ILogger logger,  LogLevel level, string msg);
+
+    public static void Emit(ILogger logger, LogLevel level, string msg, Exception exception)
+        => Emit(logger, level, $"{msg} - {exception}");
+}
+```
+
+To call, we simply use:
+
+```csharp
+    ApplicationLog.Emit(logger, logLevel, message);
+```
+
+IF there is an exception, then:
+
+```csharp
+    ApplicationLog.Emit(logger, logLevel, message, exception);
+```
+
+### Dedicated RandomLoggingService Logging method
+
+As we have multiple Event Names, each requires it's own dedicated Logging method. Below I set up a Lookup table to simplify calling the correct method and also share the Event Names.
+
+```csharp
+public static partial class RandomServiceLog
+{
+    public static Dictionary<string, Action<ILogger, LogLevel, string>> Events = new()
+    {
+        ["OnButtonClicked"] = LogOnButtonClicked,
+        ["OnMenuItemSelected"] = LogOnMenuItemSelected,
+        ["OnWindowResized"] = LogOnWindowResized,
+        ["OnDataLoaded"] = LogOnDataLoaded,
+        ["OnFormSubmitted"] = LogOnFormSubmitted,
+        ["OnTabChanged"] = LogOnTabChanged,
+        ["OnItemSelected"] = LogOnItemSelected,
+        ["OnValidationFailed"] = LogOnValidationFailed,
+        ["OnNotificationReceived"] = LogOnNotificationReceived,
+        ["OnApplicationStarted"] = LogOnApplicationStarted,
+        ["OnUserLoggedIn"] = LogOnUserLoggedIn,
+        ["OnUploadStarted"] = LogOnUploadStarted,
+        ["OnDownloadCompleted"] = LogOnDownloadCompleted,
+        ["OnProgressUpdated"] = LogOnProgressUpdated,
+        ["OnNetworkErrorOccurred"] = LogOnNetworkErrorOccurred,
+        ["OnPaymentSuccessful"] = LogOnPaymentSuccessful,
+        ["OnProfileUpdated"] = LogOnProfileUpdated,
+        ["OnSearchCompleted"] = LogOnSearchCompleted,
+        ["OnFilterChanged"] = LogOnFilterChanged,
+        ["OnLanguageChanged"] = LogOnLanguageChanged
+    };
+
+    public static void Emit(ILogger logger, EventId eventId, LogLevel level, string message, Exception? exception = null)
+        => Events[eventId.Name!].Invoke(logger, level, exception is null ? message : $"{message} - {exception}");
+
+    [LoggerMessage (EventId = 101, EventName = "OnButtonClicked", Message = "{msg}")]
+    private static partial void LogOnButtonClicked(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 102, EventName = "OnMenuItemSelected", Message = "{msg}")]
+    private static partial void LogOnMenuItemSelected(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 103, EventName = "OnWindowResized", Message = "{msg}")]
+    private static partial void LogOnWindowResized(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 104, EventName = "OnDataLoaded", Message = "{msg}")]
+    private static partial void LogOnDataLoaded(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 105, EventName = "OnFormSubmitted", Message = "{msg}")]
+    private static partial void LogOnFormSubmitted(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 106, EventName = "OnTabChanged", Message = "{msg}")]
+    private static partial void LogOnTabChanged(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 107, EventName = "OnItemSelected", Message = "{msg}")]
+    private static partial void LogOnItemSelected(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 108, EventName = "OnValidationFailed", Message = "{msg}")]
+    private static partial void LogOnValidationFailed(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 109, EventName = "OnNotificationReceived", Message = "{msg}")]
+    private static partial void LogOnNotificationReceived(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 110, EventName = "OnApplicationStarted", Message = "{msg}")]
+    private static partial void LogOnApplicationStarted(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 111, EventName = "OnUserLoggedIn", Message = "{msg}")]
+    private static partial void LogOnUserLoggedIn(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 112, EventName = "OnUploadStarted", Message = "{msg}")]
+    private static partial void LogOnUploadStarted(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 113, EventName = "OnDownloadCompleted", Message = "{msg}")]
+    private static partial void LogOnDownloadCompleted(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 114, EventName = "OnProgressUpdated", Message = "{msg}")]
+    private static partial void LogOnProgressUpdated(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 115, EventName = "OnNetworkErrorOccurred", Message = "{msg}")]
+    private static partial void LogOnNetworkErrorOccurred(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 116, EventName = "OnPaymentSuccessful", Message = "{msg}")]
+    private static partial void LogOnPaymentSuccessful(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 117, EventName = "OnProfileUpdated", Message = "{msg}")]
+    private static partial void LogOnProfileUpdated(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 118, EventName = "OnSearchCompleted", Message = "{msg}")]
+    private static partial void LogOnSearchCompleted(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 119, EventName = "OnFilterChanged", Message = "{msg}")]
+    private static partial void LogOnFilterChanged(ILogger logger,  LogLevel level, string msg);
+
+    [LoggerMessage (EventId = 120, EventName = "OnLanguageChanged", Message = "{msg}")]
+    private static partial void LogOnLanguageChanged(ILogger logger,  LogLevel level, string msg);
+}
+```
+
+**Note:** Above each unique Event Name has a unique Event Id. This is not compulsory, but highly recommended.
+
+To call, we simply use:
+
+```csharp
+RandomServiceLog.Emit("Event_Name", logger, LogLevel.Information, "message goes here");
+```
+
+### RandomLoggingService
+
+We can now update the `RandomLoggingService` class:
+
+```csharp
+public class RandomLoggingService : BackgroundService
+{
+    #region Constructors
+
+    public RandomLoggingService(ILogger<RandomLoggingService> logger)
+    {
+        _logger = logger;
+        _eventNames = RandomServiceLog.Events.Keys.ToList();
+    }
+
+    #endregion
+
+    #region Fields
+
+    #region Injected
+
+    private readonly ILogger _logger;
+
+    #endregion
+
+    // ChatGPT generated lists
+
+    private readonly List<string> _messages = new()
+    {
+        "Bringing your virtual world to life!",
+        "Preparing a new world of adventure for you.",
+        "Calculating the ideal balance of work and play.",
+        "Generating endless possibilities for you to explore.",
+        "Crafting the perfect balance of life and love.",
+        "Assembling a world of endless exploration.",
+        "Bringing your imagination to life one pixel at a time.",
+        "Creating a world of endless creativity and inspiration.",
+        "Designing the ultimate dream home for you to live in.",
+        "Preparing for the ultimate life simulation experience.",
+        "Loading up your personalized world of dreams and aspirations.",
+        "Building a new neighborhood full of excitement and adventure.",
+        "Creating a world full of surprise and wonder.",
+        "Generating the ultimate adventure for you to embark on.",
+        "Assembling a community full of life and energy.",
+        "Crafting the perfect balance of laughter and joy.",
+        "Bringing your digital world to life with endless possibilities.",
+        "Calculating the perfect formula for happiness and success.",
+        "Generating a world of endless imagination and creativity.",
+        "Designing a world that's truly one-of-a-kind for you."
+    };
+
+    private readonly IReadOnlyList<string> _eventNames;
+
+    private readonly List<string> _errorMessages = new()
+    {
+        "Error: Could not connect to the server. Please check your internet connection.",
+        "Warning: Your computer's operating system is not compatible with this software.",
+        "Error: Insufficient memory. Please close other programs and try again.",
+        "Warning: Your graphics card drivers may be outdated. Please update them before playing.",
+        "Error: The installation file is corrupt. Please download a new copy.",
+        "Warning: Your computer may be running too hot. Please check the temperature and cooling system.",
+        "Error: The required DirectX version is not installed on your computer.",
+        "Warning: Your sound card may not be supported. Please check the system requirements.",
+        "Error: The installation directory is full. Please free up space and try again.",
+        "Warning: Your computer's power supply may not be sufficient. Please check the requirements.",
+        "Error: The installation process was interrupted. Please restart the setup.",
+        "Warning: Your antivirus software may interfere with the game. Please add it to the exception list.",
+        "Error: The required Microsoft library is not installed.",
+        "Warning: Your input devices may not be compatible. Please check the system requirements.",
+        "Error: The installation process failed. Please contact support for assistance.",
+        "Warning: Your network speed may cause lag and disconnections.",
+        "Error: The setup file is not compatible with your operating system.",
+        "Warning: Your computer's resolution may cause display issues.",
+        "Error: The required Microsoft .NET Framework is not installed on your computer.",
+        "Warning: Your keyboard layout may cause input errors. Please check the settings."
+    };
+
+    private readonly Random _random = new();
+    private static readonly EventId EventId = new(id: 0x1A4, name: "RandomLoggingService");
+
+    #endregion
+
+    #region BackgroundService
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        ApplicationLog.Emit(_logger, LogLevel.Information, "Started");
+
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            // wait for a pre-determined interval
+            await Task.Delay(1000, stoppingToken).ConfigureAwait(false);
+            
+            if (stoppingToken.IsCancellationRequested)
+                return;
+
+            // heartbeat logging
+            GenerateLogEntry();
+        }
   
+        ApplicationLog.Emit(_logger, LogLevel.Information, "Stopped");
+    }
+
+    public Task StartAsync()
+        => StartAsync(CancellationToken.None);
+
+    public override async Task StartAsync(CancellationToken cancellationToken)
+    {
+        await Task.Yield();
+
+        ApplicationLog.Emit(_logger, LogLevel.Information, "Starting");
+
+        await base.StartAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    public Task StopAsync()
+        => StopAsync(CancellationToken.None);
+
+    public override async Task StopAsync(CancellationToken cancellationToken)
+    {
+        ApplicationLog.Emit(_logger, LogLevel.Information, "Stopping");
+        await base.StopAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    #endregion
+
+    #region Methods
+
+    private void GenerateLogEntry()
+    {
+        LogLevel level = _random.Next(0, 100) switch
+        {
+            < 50 => LogLevel.Information,
+            < 65 => LogLevel.Debug,
+            < 75 => LogLevel.Trace,
+            < 85 => LogLevel.Warning,
+            < 95 => LogLevel.Error,
+            _ => LogLevel.Critical
+        };
+
+        if (level < LogLevel.Error)
+        {
+            RandomServiceLog.Emit(_logger, GenerateEventId(), level, message: GetMessage());
+            return;
+        }
+
+        RandomServiceLog.Emit(_logger, GenerateEventId(), level, message: GetMessage(),
+            new Exception(_errorMessages[_random.Next(0, _errorMessages.Count)]));
+    }
+
+    private EventId GenerateEventId()
+    {
+        int index = _random.Next(0, _eventNames.Count);
+        return new EventId(id: 0x1A4 + index, name: _eventNames[index]);
+    }
+
+    private string GetMessage()
+        => _messages[_random.Next(0, _messages.Count)];
+
+    #endregion
+}
+```
+
+To see the updated `RandomLoggingService` in action, download the code and run the `WpfLoggingAttrDI` project. in the `MSlogger/Attribute` solution folder.
+
 ## Summary
   
 We covered how logging works; how to create, register, and use a custom logger & provider with customization for **WinForms** **WPF**, and **Avalonia** application types in both **C#** & **VB**. We looked at the internal code of Dot Net for working with loggers & providers. We created custom controls for **WinForms** **WPF**, and **Avalonia** application types in both **C#** & **VB**, to consume the logs from a custom logger, using Microsoft's Default Logger and a 3rd-party SeriLog structured logger. We also covered how to use the custom loggers and the custom control for both Dependency Injection and manually wiring up. Lastly, we created the **Dot Net Framework** Background Service for emulating an application generating log entries.
@@ -3734,7 +4044,7 @@ Whilst this article was long and thorough, creating Custom Loggers and consuming
 All source code, both **C#** and **VB**, is provided in the link at the top of this article. To use in your own project, copy all of the required libraries for the application type, add a reference to the LogViewer control project + the type of logger project, then follow the guidelines for usage.
   
 If you have any questions, please post below and I would be more than happy to answer.
-  
+
 ## References
   
 ### Documentation, Articles, etc
@@ -3778,6 +4088,7 @@ If you have any questions, please post below and I would be more than happy to a
     - [Microsoft.Extensions.Configuration.EnvironmentVariables](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.EnvironmentVariables)
     - [Microsoft.Extensions.Configuration.Json](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Json)
     - [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
+    - [Microsoft.Extensions.Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging)
     - [Microsoft.Extensions.Logging.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Abstractions)
     - [Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions)
     - [CommunityToolkit.Mvvm 8.1.0](https://www.nuget.org/packages/CommunityToolkit.Mvvm) (used by Avalonia)
@@ -3808,5 +4119,6 @@ If you have any questions, please post below and I would be more than happy to a
 
 - 23rd March, 2023 - v1.0 - Initial release
 - 28th March, 2023 - v1.10 - Added support for [NLOG](https://nlog-project.org/) logging platform + **WinForms**, **WPF**, and **Avalonia** sample DI & no-DI applications (x6); fixed an issue in `LogViewer.Winforms` project where possible "index out of range" exception occasionally occurs 
- - 29th March, 2023 - v1.20 = Added support for [Apache Log4Net](https://logging.apache.org/log4net/) logging Services + **WinForms**, **WPF**, and **Avalonia** sample DI & no-DI applications (x6); various code cleanup and optimizations
- 
+- 29th March, 2023 - v1.20 = Added support for [Apache Log4Net](https://logging.apache.org/log4net/) logging Services + **WinForms**, **WPF**, and **Avalonia** sample DI & no-DI applications (x6); various code cleanup and optimizations
+- 20th April, 2023 - v1.20a - rezipped project using Microsoft's File Explorer "Compress to Zip"
+- 12th September, 2023 - v1.30 - Added [LoggerMessageAttribute](#loggermessageattribute) section
