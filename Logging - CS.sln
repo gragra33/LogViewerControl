@@ -109,6 +109,10 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Avalonia.Resources", "Resou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Extensions.Logging.Log4Net.AspNetCore", "Resources\3rd Party\Microsoft.Extensions.Logging.Log4Net.AspNetCore\Microsoft.Extensions.Logging.Log4Net.AspNetCore.csproj", "{170F33B5-C7C4-4D97-8DB9-DE508E2DFCD0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Attribute", "Attribute", "{78E23FC2-A337-4FC2-AEBF-CDC517AEA30C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfLoggingAttrDI", "CSharp\Applications\WpfLoggingAttrDI\WpfLoggingAttrDI.csproj", "{06700271-27A1-4236-9AB3-B45CE431FE0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -271,6 +275,10 @@ Global
 		{170F33B5-C7C4-4D97-8DB9-DE508E2DFCD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{170F33B5-C7C4-4D97-8DB9-DE508E2DFCD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{170F33B5-C7C4-4D97-8DB9-DE508E2DFCD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06700271-27A1-4236-9AB3-B45CE431FE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06700271-27A1-4236-9AB3-B45CE431FE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06700271-27A1-4236-9AB3-B45CE431FE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06700271-27A1-4236-9AB3-B45CE431FE0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -321,6 +329,8 @@ Global
 		{F8F1A367-A352-4338-AAA7-31F6E130CF9C} = {96DDE55E-63E1-4803-BFC5-72D6D38B4746}
 		{30AB364F-51E4-4255-865D-1D163B5F82BC} = {7CD1D21E-CCCF-4458-B5E5-63ED2081E439}
 		{170F33B5-C7C4-4D97-8DB9-DE508E2DFCD0} = {A0B29205-19C3-4FF8-B3A0-28E9E9182E86}
+		{78E23FC2-A337-4FC2-AEBF-CDC517AEA30C} = {8635B709-1D5A-4445-AC45-F99EE264634F}
+		{06700271-27A1-4236-9AB3-B45CE431FE0C} = {78E23FC2-A337-4FC2-AEBF-CDC517AEA30C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6A9B467-ED50-40DB-9FFB-5BE745F08DDB}
